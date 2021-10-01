@@ -108,11 +108,11 @@ begin
   insert into credits_as_of_quarter (quarter, member_id, quarterly_cumulative_hour_share)
   select quarter, member_id, quarterly_cumulative_hour_share * profit
   from share_of_cumulative_hours_worked_in_quarter
-  where share_of_cumulative_hours_worked_in_quarter.quarter = process_quarter.quarter;
+  where share_of_cumulative_hours_worked_in_quarter.quarter = process_profit.quarter;
 end;
 $$ language plpgsql;
 
-create or replace function process_profit(quarter date, profit decimal, payout decimal default null) returns void as $$ 
+create or replace function process_payout(quarter date, profit decimal, payout decimal default null) returns void as $$ 
 begin
   insert into payouts (quarter, amount)
   values (quarter, payout);
